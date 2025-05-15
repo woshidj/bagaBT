@@ -1,2 +1,7 @@
 ENV_DIR
 ENV_DIR/*
+build
+build/*
+dist
+dist/*
+test.spec

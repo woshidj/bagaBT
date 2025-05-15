@@ -59,11 +59,14 @@ async def get_page_content(session, url):
     return await fetch(session, url)
 
 async def process_page(session, url, xpath_list, title_xpath):
-    respones = await get_page_content(session, url)
-    if respones is None:
-        return
-    search_html = html.fromstring(respones)
     source = {}
+    try:
+        respones = await get_page_content(session, url)
+    except:
+        return {}
+    if respones is None:
+        return {}
+    search_html = html.fromstring(respones)
     if respones.startswith('<script>'):
         raw = 'function html(){return decodeURIComponent(atob("' + re.split('"', respones)[1] + '"))}'
         origin_resource = executor(raw)
